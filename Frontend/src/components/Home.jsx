@@ -9,10 +9,7 @@ import {
 } from "@/components/ui/table"
 import { Button } from "./ui/button";
 import { Eye, Trash } from "lucide-react";
-import { useState } from "react";
 import { deleteDocumentByID, getAllFile } from "../../api/File"
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import UploadFileData from "./Uppload";
 
@@ -27,7 +24,7 @@ const Home = () => {
             console.log(error);
         }
     }
- 
+
     const deleteFile = async (id) => {
         try {
             const response = await deleteDocumentByID(id);
@@ -55,8 +52,15 @@ const Home = () => {
 
     return (
         <>
-            <div>
-                <UploadFileData />
+            <div className="flex justify-between p-10">
+                <div>
+                    <div>
+                        <h1 className="text-3xl font-bold">INI8 Labs.</h1>
+                    </div>
+                    <div>
+                        <UploadFileData />
+                    </div>
+                </div>
                 <Table>
                     <TableCaption>A list of your Documents.</TableCaption>
                     <TableHeader>
@@ -77,9 +81,9 @@ const Home = () => {
                                     <Button variant="outline" onClick={() => getDocumentByID(file.id)}>
                                         <Eye />
                                     </Button>
-                                    <button onClick={() => deleteMutation.mutate(file.id)}>
-                                        Delete
-                                    </button>
+                                    <Button variant="destructive" onClick={() => deleteMutation.mutate(file.id)}>
+                                        <Trash />
+                                    </Button>
                                 </TableCell>
                             </TableRow>
                         ))}
