@@ -13,8 +13,6 @@ export async function TestConnection() {
     const rows = await sql`SELECT * FROM files ORDER BY id DESC LIMIT 5`
 
     console.log("Connected successfully!")
-    console.log("Sample rows from 'files' table:")
-    console.log(rows)
 
   } catch (error) {
     console.error("❌ Database connection error:", error)
