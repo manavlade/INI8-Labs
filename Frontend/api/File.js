@@ -63,3 +63,17 @@ export async function deleteDocumentByID(id) {
     }
 
 }
+
+export async function downloadDocumentByID(id) {
+    try {
+        const response = await axios.get(`${BASE_URL}/documents/downloads/${id}`, {
+            responseType: "blob"
+        });
+
+        return response;
+    } catch (error) {
+
+        throw new Error(error);
+    }
+
+}

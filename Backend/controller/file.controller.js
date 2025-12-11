@@ -127,3 +127,27 @@ export async function deleteDocumentByID(req, res) {
         })
     }
 }
+
+
+export async function downloadDocumentByID(req, res) {
+    try {
+        const fileId = req.params.id;
+        const file = await sql`SELECT * FROM files WHERE id = ${fileId}`;
+
+        if (!file.length) {
+            return res.status(404).json({
+                message: "File not found"
+            })
+        }
+
+        const filepath = file[0].filepath;
+
+        return res.download(filepath, file[0].filename);
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
